@@ -8,6 +8,7 @@ import { fileURLToPath } from "url";
 
 const router = express.Router();
 
+console.log("Test pass hash ="+hashPassword("test"))
 
 router.post('/login', async (req, res) => {  
 
@@ -58,6 +59,8 @@ router.post('/signup', async (req, res) => {
 
     
     let requestUsername = req.body.username;
+    let requestFName = req.body.fname;
+    let requestLName = req.body.lname;
     let requestPassword = req.body.password;
     let requestEmail = req.body.email;
     
@@ -67,18 +70,18 @@ router.post('/signup', async (req, res) => {
 
     try{
 
-        await query('INSERT INTO Login(username,email,passHash,salt) values (?,?,?,?)', [requestUsername,requestEmail,passHash,salt]);
+        await query('INSERT INTO User(username,jmeno,prijmeni,email,passHash,salt) values (?,?,?,?)', [requestUsername,requestFName,requestLName,requestEmail,passHash,salt]);
 
         console.log('Executed query');
         res.status(200);
         res.set('Content-Type','text/html');
         return res.send('Succesfully Signed-up. <a href=\'/\'>Back to Login.</a>');
 
-    }catch(Exception){
+    }catch(Exception e){
         console.log('Error thrown during sql query');
         res.status(200);
         res.set('Content-Type', 'application/json');
-        let data = {signup:'false', error:'Account already registered.'};
+        let data = {signup:'false', error:'Account already registered.',exception:e};
         return res.send(JSON.stringify(data));
 
     };
