@@ -1,0 +1,99 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="2D4D3A13-54F5-5DD3-F8B7-95A06531557F" name="Message">
+<createdBy>charming</createdBy>
+<createdTime>2024-01-13 15:27:08 UTC</createdTime>
+<generatorID>2D06F6A0-F1AB-ADFF-2D04-2E39A2E43DDF</generatorID>
+<ownerDesignName>diagram</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="id" id="DE7AAC1B-164D-EB17-D5D6-3DF68C82AD11">
+<createdBy>charming</createdBy>
+<createdTime>2024-01-13 15:36:31 UTC</createdTime>
+<ownerDesignName>diagram</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT057</logicalDatatype>
+<dataTypeSize>16 BYTE</dataTypeSize>
+<ownDataTypeParameters>16 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="sender_id" id="B9A5FAD3-1867-2CE6-46DC-10B085470F60">
+<createdBy>charming</createdBy>
+<createdTime>2024-01-13 15:27:08 UTC</createdTime>
+<ownerDesignName>diagram</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT057</logicalDatatype>
+<dataTypeSize>16 BYTE</dataTypeSize>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="B0EE8BBA-DC57-279B-5800-CA8A47913727" referredColumn="731982DB-FEF6-5403-45B6-71B9F805648E"/>
+</associations>
+</Column>
+<Column name="rec_id" id="CFD4D312-66CC-A29C-241B-5B03298389BF">
+<createdBy>charming</createdBy>
+<createdTime>2024-01-13 15:27:08 UTC</createdTime>
+<ownerDesignName>diagram</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT057</logicalDatatype>
+<dataTypeSize>16 BYTE</dataTypeSize>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="D79A2948-9066-CEDE-C27C-8EEA7EDBB1D8" referredColumn="731982DB-FEF6-5403-45B6-71B9F805648E"/>
+</associations>
+</Column>
+<Column name="message" id="55B2A44F-453C-84B9-1BD1-A2582C83AED6">
+<createdBy>charming</createdBy>
+<createdTime>2024-01-13 15:36:56 UTC</createdTime>
+<ownerDesignName>diagram</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>450 CHAR</dataTypeSize>
+<ownDataTypeParameters>450 CHAR,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="C87415EA-E68A-D0AF-00C3-A24F06E9D83E" name="Message_PK">
+<createdBy>charming</createdBy>
+<createdTime>2024-01-13 15:36:31 UTC</createdTime>
+<ownerDesignName>diagram</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="DE7AAC1B-164D-EB17-D5D6-3DF68C82AD11"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="E3D592C4-B39B-1320-EFFB-93AA02B649AF" name="Message_User_FK">
+<createdBy>charming</createdBy>
+<createdTime>2024-01-13 15:27:08 UTC</createdTime>
+<generatorID>AE4F01F3-A86F-DB86-FB47-EB9B4D1F5AC9</generatorID>
+<ownerDesignName>diagram</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="B9A5FAD3-1867-2CE6-46DC-10B085470F60"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="241B7B56-DAAC-0627-16A8-D1D00CF4971E" name="Message_User_FKv2">
+<createdBy>charming</createdBy>
+<createdTime>2024-01-13 15:27:08 UTC</createdTime>
+<generatorID>6E743C43-9097-A618-514F-59DEFE9AB202</generatorID>
+<ownerDesignName>diagram</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="CFD4D312-66CC-A29C-241B-5B03298389BF"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>
