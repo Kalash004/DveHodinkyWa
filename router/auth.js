@@ -77,7 +77,8 @@ router.post('/signup', async (req, res) => {
         res.set('Content-Type','text/html');
         return res.send('Succesfully Signed-up. <a href=\'/\'>Back to Login.</a>');
 
-    }catch(Exception e){
+    }catch( e){
+
         console.log('Error thrown during sql query');
         res.status(200);
         res.set('Content-Type', 'application/json');
