@@ -7,9 +7,14 @@ import { fileURLToPath } from "url";
 
 
 const router = express.Router();
+for(let i = 0; i < 10; i++{
+    let salt = generateSalt("test"+i,"test")
+    console.log("Salt for Test"+i+":"+salt)
+    
+    console.log("Test "+i+"pass hash ="+hashPassword("test"+salt))
 
-console.log("Test pass hash ="+hashPassword("test"))
 
+}
 router.post('/login', async (req, res) => {  
 
 
