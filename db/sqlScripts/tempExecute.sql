@@ -1,7 +1,10 @@
-create table IF NOT EXISTS ChatGroup(
+create table IF NOT EXISTS GroupMember(
 	id BINARY(16) primary key,
-	name varchar(255) not null,
-	description varchar(255) not null
+	group_id BINARY(16),
+    constraint fk_group_id foreign key(group_id) references Group(id),
+	user_id BINARY(16) primary key,
+    constraint fk_user_id foreign key(user_id) references User(id),
+    nickname varchar(255)
 );
 
 
