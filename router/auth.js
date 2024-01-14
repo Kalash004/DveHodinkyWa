@@ -7,7 +7,7 @@ import { fileURLToPath } from "url";
 
 
 const router = express.Router();
-for(let i = 0; i < 10; i++{
+for(let i = 0; i < 10; i++){
     let salt = generateSalt("test"+i,"test")
     console.log("Salt for Test"+i+":"+salt)
     
