@@ -1,11 +1,7 @@
-
-create table IF NOT EXISTS User(
+create table IF NOT EXISTS Group(
 	id BINARY(16) primary key,
-	username varchar(255) not null,
-	jmeno varchar(255) not null,
-	prijmeni varchar(255) not null,
-	email varchar(255) not null,
-	passHash varchar(500) not null,
-	salt varchar(255) not null
+	name varchar(255) not null,
+	desc varchar(255) not null
 );
+
 
