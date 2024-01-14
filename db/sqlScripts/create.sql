@@ -21,7 +21,7 @@ create table IF NOT EXISTS ChatGroup(
 create table IF NOT EXISTS GroupMember(
 	id BINARY(16) primary key,
 	group_id BINARY(16),
-    constraint fk_group_id foreign key(group_id) references Group(id),
+    constraint fk_group_id foreign key(group_id) references ChatGroup(id),
 	user_id BINARY(16) primary key,
     constraint fk_user_id foreign key(user_id) references User(id),
     nickname varchar(255)
@@ -42,7 +42,7 @@ create table IF NOT EXISTS GroupMessage(
 	sender_id BINARY(16) not null,
 	constraint fk_sender foreign key(sender_id) references User(id),
 	group_id BINARY(16) not null,
-	constraint fk_group foreign key(group_id) references Group(id)
+	constraint fk_group foreign key(group_id) references ChatGroup(id)
 	message varchar(450) not null
 );
 
