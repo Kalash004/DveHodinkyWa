@@ -1,9 +1,7 @@
 import {query} from '../functions/database.js'
 import express from 'express'
 import {validatePassword,hashPassword} from '../functions/passValidation.js'
-import sessions from 'express-session';
 import { generateSalt } from '../functions/saltGenerator.js';
-import { fileURLToPath } from "url";
 
 
 const router = express.Router();
@@ -11,7 +9,7 @@ for(let i = 0; i < 10; i++){
     let salt = generateSalt("test"+i,"test")
     console.log("Salt for Test"+i+":"+salt)
     
-    console.log("Test "+i+"pass hash ="+hashPassword("test"+salt))
+    console.log("Test "+i+"pass hash ="+hashPassword("test"+i+salt))
 
 
 }
