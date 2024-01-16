@@ -1,0 +1,22 @@
+--Salt for Test0:~!@#$%^&*_-+=`|(){}[]:;"'<>,.?/~!@#$%^&*_-+=`|(){}[]:;"'<>,.?/~!@#$%^&*_-+=`|(){}[]:;"'<>,.?/0tttte
+--Test 0pass hash =19db440925b485388387d7a1d2010763b290206f9ad1c19c891b622ff98fa463f200755d30a7ace66a0bc7bb00fee72d7511455eb0986efa0edd68ceae1d667f
+--Salt for Test1:~!@#$%^&*_-+=`|(){}[]:;"'<>,.?/~!@#$%^&*_-+=`|(){}[]:;"'<>,.?/~!@#$%^&*_-+=`|(){}[]:;"'<>,.?/etetts
+--Test 1pass hash =d2d9670fa020cdf2db5698b42ad1620b977aef57c377df61090d5e61586d7a93c6666d9fef4c0b37a3745a40404480dc4bdd9e84e81f620595b15240b11b3bb6
+--Salt for Test2:~!@#$%^&*_-+=`|(){}[]:;"'<>,.?/~!@#$%^&*_-+=`|(){}[]:;"'<>,.?/~!@#$%^&*_-+=`|(){}[]:;"'<>,.?/t22eet
+--Test 2pass hash =0a39417e69c69ae34420ac4f1b0faa20b9a199cac0082a1f9f5ca01b2ea413b9474ce3271d47848ce975d7b92942c883e218b10bfcdfcddddb823cae2300831a
+--Salt for Test3:~!@#$%^&*_-+=`|(){}[]:;"'<>,.?/~!@#$%^&*_-+=`|(){}[]:;"'<>,.?/~!@#$%^&*_-+=`|(){}[]:;"'<>,.?/ss3ttt
+--Test 3pass hash =e4ae3e03d3344c53052387a4dea87b058d8e5bca6d515dfaecf3557bd8f5b082b975a6c941a809e62b3c70744a4684dd7127d02c63d945a25e21b1f8d28fc2a2
+--Salt for Test4:~!@#$%^&*_-+=`|(){}[]:;"'<>,.?/~!@#$%^&*_-+=`|(){}[]:;"'<>,.?/~!@#$%^&*_-+=`|(){}[]:;"'<>,.?/tttest
+--Test 4pass hash =df212bc22dca844a4618e9d36b01bc3cd55581ac76d738a7b3029cd324c12afb31a5826a843f2cf21126cec670bf95d45601ee032221bb9e18e254b15cb77f51
+--Salt for Test5:~!@#$%^&*_-+=`|(){}[]:;"'<>,.?/~!@#$%^&*_-+=`|(){}[]:;"'<>,.?/~!@#$%^&*_-+=`|(){}[]:;"'<>,.?/eeeese
+--Test 5pass hash =d145964efe69b571acf1117236440e8ddd08c22953f606b9eb143adcaf05e51700641a72748fa6a84045d3f0be1ef1bf9009e2f2617e21ad188f017111b3e49f
+--Salt for Test6:~!@#$%^&*_-+=`|(){}[]:;"'<>,.?/~!@#$%^&*_-+=`|(){}[]:;"'<>,.?/~!@#$%^&*_-+=`|(){}[]:;"'<>,.?/t6eets
+--Test 6pass hash =98d9386bc9cba4847998c3ce6acead1d9602a5b4bec30e4e3b84980aa5698a9e7533ba6c4def0888c246f5cf6dea67a6c46c3abc55194a8f7c27e9239427f3bf
+--Salt for Test7:~!@#$%^&*_-+=`|(){}[]:;"'<>,.?/~!@#$%^&*_-+=`|(){}[]:;"'<>,.?/~!@#$%^&*_-+=`|(){}[]:;"'<>,.?/ttsett
+--Test 7pass hash =c59f63d9ca9891c07b284d27ebc3200f40a33df686e1435d91e79d947674a3c8b321bbd85dacf258c2389ae6be2ad2344f6f90a09448ea493eeebac9151514a2
+--Salt for Test8:~!@#$%^&*_-+=`|(){}[]:;"'<>,.?/~!@#$%^&*_-+=`|(){}[]:;"'<>,.?/~!@#$%^&*_-+=`|(){}[]:;"'<>,.?/tsteet
+--Test 8pass hash =b6fd3c82328df1b87234be335cbe13644fe85e895623fb107ccc470005ad6f25eea496af449ff5138e321401b03cb1c2e637860df08398438dc4dc011786d0af
+--Salt for Test9:~!@#$%^&*_-+=`|(){}[]:;"'<>,.?/~!@#$%^&*_-+=`|(){}[]:;"'<>,.?/~!@#$%^&*_-+=`|(){}[]:;"'<>,.?/es9tts
+--Test 9pass hash =24fb9708eb3c0ddeb83aea77cce9b54a8affed6527662320a5877c904120ec989cba7c95718de12878a6b4b20f4dbd74aa63e26193e514f8f3a502cc2619f548
+--
+insert into User(username,jmeno,prijmeni,email,passHash,salt) values('test0','testovan','testovich','test0@test.test','');

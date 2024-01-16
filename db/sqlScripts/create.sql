@@ -3,7 +3,7 @@ BEGIN
 
 	START TRANSACTION;
 create table IF NOT EXISTS User(
-	id BINARY(16) primary key,
+	id BINARY(16) primary key default (UUID_TO_BIN(UUID())) ,
 	username varchar(255) not null,
 	jmeno varchar(255) not null,
 	prijmeni varchar(255) not null,
@@ -13,13 +13,13 @@ create table IF NOT EXISTS User(
 );
 
 create table IF NOT EXISTS ChatGroup(
-	id BINARY(16) primary key,
+	id BINARY(16) primary key default (UUID_TO_BIN(UUID())) ,
 	name varchar(255) not null,
 	desc varchar(255) not null
 );
 
 create table IF NOT EXISTS GroupMember(
-	id BINARY(16) primary key,
+	id BINARY(16) primary key default (UUID_TO_BIN(UUID())), 
 	group_id BINARY(16),
     constraint fk_group_id foreign key(group_id) references ChatGroup(id),
 	user_id BINARY(16),
@@ -29,7 +29,7 @@ create table IF NOT EXISTS GroupMember(
 
 
 create table IF NOT EXISTS Message(
-	id BINARY(16) primary key,
+	id BINARY(16) primary key default (UUID_TO_BIN(UUID())),
 	sender_id BINARY(16) not null,
 	constraint fk_sender foreign key(sender_id) references User(id),
 	rec_id BINARY(16) not null,
@@ -38,7 +38,7 @@ create table IF NOT EXISTS Message(
 );
 
 create table IF NOT EXISTS GroupMessage(
-	id Binary(16) primary key,
+	id Binary(16) primary key default (UUID_TO_BIN(UUID())),
 	sender_id BINARY(16) not null,
 	constraint fk_group_sender foreign key(sender_id) references User(id),
 	group_id BINARY(16) not null,
