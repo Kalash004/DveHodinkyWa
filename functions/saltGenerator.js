@@ -2,7 +2,7 @@
 // standard best practice salt generator, I made this for
 // shits and giggles, but it should still improve security
 
-const SPECIAL_CHARACTERS = ['~!@#$%^&*_-+=>?'];
+const SPECIAL_CHARACTERS = ['~','!','@','#','$','%','^','&','*','_','-','+','=','>','?'];
 
 export const  _getRandomInt = function(max){
     return Math.floor(Math.random() * max);
@@ -11,9 +11,10 @@ export const  _getRandomInt = function(max){
 export const  generateSalt = function (username,email){
     let salt = "";
     
-    salt += SPECIAL_CHARACTERS[_getRandomInt(SPECIAL_CHARACTERS.length)];
-    salt += SPECIAL_CHARACTERS[_getRandomInt(SPECIAL_CHARACTERS.length)];
-    salt += SPECIAL_CHARACTERS[_getRandomInt(SPECIAL_CHARACTERS.length)];
+    for(let i = 0; i < SPECIAL_CHARACTERS.length; i++){
+
+        salt += SPECIAL_CHARACTERS[_getRandomInt(SPECIAL_CHARACTERS.length)];
+    }
 
     salt += username[_getRandomInt(username.length)];
     salt += username[_getRandomInt(username.length)];
