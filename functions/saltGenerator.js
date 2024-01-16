@@ -38,8 +38,9 @@ export const  _getRandomInt = function(max){
 export const  generateSalt = function (username,email){
     let salt = "";
     for(let i = 0; i < 50; i ++){
-        let letterArray = alphabetMap.get( username[_getRandomInt(username.length)].toUpperCase)();
+        let letterArray = alphabetMap.get( username[_getRandomInt(username.length)].toUpperCase());
         let randomLetter = letterArray[letterArray.length];
+        salt += randomLetter;
     }
     
     salt += username[_getRandomInt(username.length)];
