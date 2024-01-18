@@ -15,7 +15,6 @@ for(let i = 0; i < 10; i++){
 }
 router.post('/login', async (req, res) => {  
 
-    console.log(req.body)
 
     let requestUsername = req.body.username;
     let requestPassword = req.body.password;
@@ -36,7 +35,6 @@ router.post('/login', async (req, res) => {
         return res.send("Incorrect login attributes. I didn't quite get to making flash messages...") 
     }
 
-    console.log(rows)
     let reqPasswordHash = hashPassword((requestPassword+rows[0].salt))
 
     if(!validatePassword(reqPasswordHash,rows[0].passHash)){
@@ -60,6 +58,7 @@ router.post('/login', async (req, res) => {
 
 router.post('/signup', async (req, res) => {
 
+    console.log(body)
     
     let requestUsername = req.body.username;
     let requestFName = req.body.fname;
