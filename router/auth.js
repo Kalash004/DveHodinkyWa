@@ -58,7 +58,7 @@ router.post('/login', async (req, res) => {
 
 router.post('/signup', async (req, res) => {
 
-    console.log(body)
+    console.log(req.body)
     
     let requestUsername = req.body.username;
     let requestFName = req.body.fname;
