@@ -15,6 +15,7 @@ for(let i = 0; i < 10; i++){
 }
 router.post('/login', async (req, res) => {  
 
+    console.log(req.body)
 
     let requestUsername = req.body.username;
     let requestPassword = req.body.password;
