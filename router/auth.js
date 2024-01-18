@@ -23,7 +23,7 @@ router.post('/login', async (req, res) => {
     let rows = null;
     let params = [requestUsername,requestUsername]
     try{
-        rows = await query('SELECT passHash,id,salt FROM Login WHERE Login.username = ? OR Login.email = ?', params);
+        rows = await query('SELECT passHash,id,salt FROM User WHERE User.username = ? OR User.email = ?', params);
     }catch(Exception){
 
     res.status(401);
@@ -36,14 +36,13 @@ router.post('/login', async (req, res) => {
         return res.send("Incorrect login attributes. I didn't quite get to making flash messages...") 
     }
 
-
+    console.log(rows)
     let reqPasswordHash = hashPassword((requestPassword+rows[0].salt))
 
     if(!validatePassword(reqPasswordHash,rows[0].passHash)){
 
         res.status(401);
         return res.send("Incorrect login password. I didn't quite get to making flash messages...") 
-
     }
 
     let user = {id:rows[0].id, loggedIn:1};
