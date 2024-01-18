@@ -58,11 +58,8 @@ router.post('/login', async (req, res) => {
 
 router.post('/signup', async (req, res) => {
 
-    console.log(req.body)
     
     let requestUsername = req.body.username;
-    let requestFName = req.body.fname;
-    let requestLName = req.body.lname;
     let requestPassword = req.body.password;
     let requestEmail = req.body.email;
     
@@ -72,7 +69,7 @@ router.post('/signup', async (req, res) => {
 
     try{
 
-        await query('INSERT INTO User(username,jmeno,prijmeni,email,passHash,salt) values (?,?,?,?)', [requestUsername,requestFName,requestLName,requestEmail,passHash,salt]);
+        await query('INSERT INTO User(username,jmeno,prijmeni,email,passHash,salt) values (?,?,?,?)', [requestUsername,"Placeholder","Placeholder",requestEmail,passHash,salt]);
 
         console.log('Executed query');
         res.status(200);

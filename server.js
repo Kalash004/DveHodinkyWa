@@ -1,10 +1,12 @@
 // ##########
 // BASE CONFIG
 // ##########
+import socket from "express-ws"
 import sessions from "express-session";
 import cookieParser from "cookie-parser";
 import {checkIfAuthenticated} from "./functions/authentication.js";
 import authRouter from './router/auth.js';
+import wsRouter from './router/socket.js';
 import apiRouter from './router/api.js';
 import express from 'express';
 import config from "./config.js"; 
@@ -56,8 +58,10 @@ server.get('/',checkIfAuthenticated,(req,res)=>{
     res.sendFile(path.join(__dirname,'/views/'));
 });
 
+// Routers from router/
 server.use(authRouter);
 server.use(apiRouter);
+servers.use(wsRouter);
 
 // No route found
 server.use('*',(req,res) => {
