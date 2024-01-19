@@ -1,4 +1,1 @@
-select Message.message,User.username "sender", User.username "receiver"
-from Message inner join User
-on Message.sender_id = User.id and Message.rec_id = User.id
-group by sender,message;
+select Message.message,(select User.username from User where user.id = Message.sender_id) as "sender", (select User.username from User where user.id = Message.sender_id) "receiver";
