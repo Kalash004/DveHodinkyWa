@@ -1,5 +1,7 @@
-select Message.message, sender.username "sender", receiver.username "receiver"
-from Message inner join User sender 
-on Message.sender_id = sender.id
-inner join User receiver on Message.rec_id = receiver.id
-group by sender;
+SELECT SEC_TO_TIME(
+          FLOOR(
+             TIME_TO_SEC('01:00:00') + RAND() * (
+                  TIME_TO_SEC(TIMEDIFF('24:00:00', '00:00:00'))
+             )
+          )
+        );
