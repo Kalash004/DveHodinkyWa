@@ -1,7 +1,6 @@
-update Message set time_sent = (SELECT SEC_TO_TIME(
-          FLOOR(
-             TIME_TO_SEC('01:00:00') + RAND() * (
-                  TIME_TO_SEC(TIMEDIFF('22:00:00', '01:00:00'))
-             )
-          )
-        ));
+select Message.message,Message.time_sent,sender.username,receiver.username
+from Message
+inner join User sender on sender.id = Message.sender_id
+inner join User receiver on receiver.id = Message.rec_id
+group by sender.username,receiver.username
+order by time_sent;
