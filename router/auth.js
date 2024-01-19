@@ -63,7 +63,8 @@ router.post('/signup', async (req, res) => {
 
     try{
 
-        await query('INSERT INTO User(username,jmeno,prijmeni,email,passHash,salt) values ( ? , ? , ? , ? )', [requestUsername,placeholder,placeholder,requestEmail,passHash,salt]);
+        let params = [requestUsername,placeholder,placeholder,requestEmail,passHash,salt];
+        await query('INSERT INTO User(username,jmeno,prijmeni,email,passHash,salt) values ( ? , ? , ? , ? )',params );
 
         console.log('Executed query');
         res.status(200);
