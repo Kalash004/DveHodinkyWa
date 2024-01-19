@@ -1,7 +1,6 @@
 import {query} from '../functions/database.js'
 import express from 'express'
 import {checkIfAuthenticated} from '../functions/authentication.js'
-import sessions from 'express-session';
 
 
 const router = express.Router();
@@ -13,6 +12,8 @@ router.get('/api',checkIfAuthenticated,async(req,res)=>{
 })
 
 router.get('/api/messages',async (req,res)=>{
+
+    let sql = "Select "
 
     let rows = await query('SELECT Post.title AS title, Post.content AS content, Post.date AS date, Login.username AS author'+
     ' FROM Post INNER JOIN Login'+
@@ -42,7 +43,7 @@ router.get('/api/messages',async (req,res)=>{
  
 })
 
-router.get('/api/blogId',async (req,res) =>{
+router.get('/api/messagesUser',async (req,res) =>{
 
     console.log("Api blogId query params:"+req.query.id);
 
@@ -91,54 +92,6 @@ router.get('/api/blogId',async (req,res) =>{
  
 
 
-router.get('/api/blogId/:id',async (req,res) =>{
-
-    console.log("Api blogId url params:"+req.params);
-
-    if(!req.params.id){
-        return res.send("A valid id must be sent with this request. The id is a positive integer.");
-    }
-    let id;
-    try {
-        id = parseInt(req.query.id);
-    } catch (error) {
-        return res.send("A valid id must be sent with this request. The id must be a positive integer.");
-    }
-
-
-    let rows;
-    try {
-    rows = await query('SELECT Post.title AS title, Post.content AS content, Post.date AS date, Login.username AS author'+
-    ' FROM Post INNER JOIN Login'+
-    ' ON Post.author = Login.id AND Post.id =?',[id]);
-    } catch (error) {
-
-        console.log(error);
-        return res.send("Error during SQL query.");
-    }
-
-
-    if(!rows ||rows.length == 0){
-        res.status(200);
-        res.set('Content-Type', 'application/json');
-        let data = {posts:"No posts present in database"};
-        return res.send(JSON.stringify(data));
-    }
-
-     
-    res.status(200);
-    res.set('Content-Type', 'application/json');
-    let data = {posts:[]}
-    
-    let author = rows[0].author;
-    let title = rows[0].title;
-    let content = rows[0].content;
-    let date = rows[0].date;
-    let post = {'author':author,'title':title,'content':content,'date':date}
-    data.posts.push(post);
-
-    return res.send(JSON.stringify(data));
-})
 
 router.post('/api/blog',checkIfAuthenticated,async (req,res) =>{
 
@@ -186,59 +139,5 @@ router.post('/api/blog',checkIfAuthenticated,async (req,res) =>{
     let response = {Request:"Success", idOfPost:rows[0].id};
     return res.send(JSON.stringify(response));
 })
-
-router.delete('/api/blog/:id',checkIfAuthenticated,async (req,res)=>{
-
-    if(!req.params.id){
-        return res.send("A valid id must be sent with this request. The id must be a positive integer.");
-    }
-
-    let id;
-    try {
-        id = parseInt(req.params.id);
-    } catch (error) {
-        return res.send("A valid id must be sent with this request. The id must be a positive integer.");
-    }
-    try {
-        query('DELETE FROM Post WHERE id = ?',[req.params.id]);
-    } catch (error) {
-        res.send("Error during SQL query.");
-    }
-     
-    res.status(200);
-    res.set('Content-Type', 'application/json');
-    let data = {query:"Sucess-post was deleted."}
-    
-    return res.send(JSON.stringify(data));
-})
-
-router.delete('/api/blog',checkIfAuthenticated,async (req,res)=>{
-
-    console.log("Api delete blog query params:"+req.query.id);
-
-    if(!req.query.id){
-        return res.send("A valid id must be sent with this request. The id must be a positive integer.");
-    }
-
-    let id;
-    try {
-        id = parseInt(req.query.id);
-    } catch (error) {
-        return res.send("A valid id must be sent with this request. The id must be a positive integer.");
-    }
-
-    try {
-        query('DELETE FROM Post WHERE id = ?',[req.query.id]);
-    } catch (error) {
-        return res.send("Error during SQL query.");
-    }
-     
-    res.status(200);
-    return res.send("Sucesfully deleted.");
-})
-
-
-
-
 
 export default router;

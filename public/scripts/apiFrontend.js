@@ -5,7 +5,7 @@ function updateFormMethod(element){
     apiForm.setAttribute("method",element.value);
 }
 
-document.querySelector("#getBlog").addEventListener('click',()=>{
+document.querySelector("#getMessagesWord").addEventListener('click',()=>{
 
     apiForm.replaceChildren();
     
@@ -21,7 +21,7 @@ document.querySelector("#getBlog").addEventListener('click',()=>{
 
 })
 
-document.querySelector("#getBlogId").addEventListener('click',()=>{
+document.querySelector("#getAllMessages").addEventListener('click',()=>{
     apiForm.replaceChildren();
 
     const inputID = document.createElement("input");
@@ -42,7 +42,7 @@ document.querySelector("#getBlogId").addEventListener('click',()=>{
 
 })
 
-document.querySelector("#deleteBlog").addEventListener('click',()=>{
+document.querySelector("#getUserMessages").addEventListener('click',()=>{
     apiForm.replaceChildren();
     
     let string = "curl -X DELETE 16.170.146.152/api/blog?id=<ID>	-H \"Accept: application/json\"";
@@ -59,7 +59,7 @@ document.querySelector("#deleteBlog").addEventListener('click',()=>{
 
 })
 
-document.querySelector("#postBlog").addEventListener('click',()=>{
+document.querySelector("#getGroupChatMessages").addEventListener('click',()=>{
     apiForm.replaceChildren();
 
 

@@ -238,29 +238,24 @@
             <ul class="menu">
                 <li><a href="">Endpoint Descriptions</a>
                     <ul class="submenu">
-                        <li><a href="">POST /api/blog</a>
+                        <li><a href="">GET /api/blog</a>
                             <ul class="subsubmenu">
-                                <li><a>Creates a blog post with your username. Just title it and type some content.</a></li>
+                                <li><a>Get all messages in db. Messages are either groupChat messages or dms.</a></li>
                             </ul>
                         </li>
                         <li><a href="">GET /api/blog</a>
                             <ul class="subsubmenu">
-                                <li><a>Returns all blogs in the db. They will be returned in JSON format.</a></li>
+                                <li><a>Get all messages posted by a specific user</a></li>
                             </ul>
                         </li>
                         <li><a href="">GET /api/blog/blogid</a>
                             <ul class="subsubmenu">
-                                <li><a>Gets u a blog by ID in database. Will be returned in JSON.</a></li>
+                                <li><a>Get all messages of a specific groupChat.</a></li>
                             </ul>
                         </li>
-                        <li><a href="">DELETE /api/blog/blogid</a>
+                        <li><a href="">GET /api/blog/blogid</a>
                             <ul class="subsubmenu">
-                                <li><a>Deletes a blog by that u created by id in database.</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="">PATCH /api/blog/blogid</a>
-                            <ul class="subsubmenu">
-                                <li><a>I will not implement this because I already spent too much time on this.</a></li>
+                                <li><a>Get all messages containing specified text.</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -270,10 +265,10 @@
     </header>
 
     <div class="picker">
-        <p id="getBlog">GET BLOG</p>
-        <p id="getBlogId">GET BLOG BY ID</p>
-        <p  id="deleteBlog">DELETE BLOG</p>
-        <p  id="postBlog">POST BLOG</p>
+        <p id="getAllMessages">All messages</p>
+        <p id="getUserMessages">User messages</p>
+        <p  id="getGroupChatMessages">Group chat messages</p>
+        <p  id="getMessagesWord">Messages containing text</p>
     </div>
     <form id="apiForm" ></form>
 
