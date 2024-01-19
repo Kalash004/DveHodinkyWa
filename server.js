@@ -1,14 +1,14 @@
 // ##########
 // BASE CONFIG
 // ##########
-import socket from "express-ws"
+import express from 'express';
+import authRouter from './router/auth.js';
+import apiRouter from './router/api.js';
+import wsRouter,{mountRouter} from './router/socket.js';
+import expressWs from "express-ws";
 import sessions from "express-session";
 import cookieParser from "cookie-parser";
 import {checkIfAuthenticated} from "./functions/authentication.js";
-import authRouter from './router/auth.js';
-import wsRouter from './router/socket.js';
-import apiRouter from './router/api.js';
-import express from 'express';
 import config from "./config.js"; 
 import path, {dirname} from 'path';
 import { fileURLToPath } from "url";
@@ -19,6 +19,7 @@ const __dirname = dirname(__filename);
 
 const host = config.server.hostname;
 const port = config.server.port;
+
 
 // Create server (app)
 const server = express();
@@ -58,10 +59,13 @@ server.get('/',checkIfAuthenticated,(req,res)=>{
     res.sendFile(path.join(__dirname,'/views/'));
 });
 
+
+expressWs(server);
 // Routers from router/
+mountRouter();
+server.use(wsRouter);
 server.use(authRouter);
 server.use(apiRouter);
-servers.use(wsRouter);
 
 // No route found
 server.use('*',(req,res) => {
