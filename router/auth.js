@@ -5,14 +5,7 @@ import { generateSalt } from '../functions/saltGenerator.js';
 
 
 const router = express.Router();
-for(let i = 0; i < 10; i++){
-    let salt = generateSalt("test"+i,"test")
-    console.log("Salt for Test"+i+":"+salt)
-    
-    console.log("Test "+i+"pass hash ="+hashPassword("test"+i+salt))
 
-
-}
 router.post('/login', async (req, res) => {  
 
 
@@ -62,6 +55,7 @@ router.post('/signup', async (req, res) => {
     let requestUsername = req.body.username;
     let requestPassword = req.body.password;
     let requestEmail = req.body.email;
+    let placeholder = "placeholder";
     
     let salt = generateSalt(requestUsername,requestEmail);
     let passHash = hashPassword((requestPassword+salt));
@@ -69,7 +63,7 @@ router.post('/signup', async (req, res) => {
 
     try{
 
-        await query('INSERT INTO User(username,jmeno,prijmeni,email,passHash,salt) values (?,?,?,?)', [requestUsername,"Placeholder","Placeholder",requestEmail,passHash,salt]);
+        await query('INSERT INTO User(username,jmeno,prijmeni,email,passHash,salt) values ( ? , ? , ? , ? )', [requestUsername,placeholder,placeholder,requestEmail,passHash,salt]);
 
         console.log('Executed query');
         res.status(200);
