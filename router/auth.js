@@ -81,7 +81,7 @@ router.post('/signup', async (req, res) => {
         console.log('Error thrown during sql query');
         res.status(200);
         res.set('Content-Type', 'application/json');
-        let data = {signup:'false', error:'Account already registered.',exception:e};
+        let data = {signup:'false',exception:e};
         return res.send(JSON.stringify(data));
 
     };
