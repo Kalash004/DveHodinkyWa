@@ -1,4 +1,4 @@
-select Message.message, User.username "sender", User.username "receiver"
+select Message.message, sender.username "sender", receiver.username "receiver"
 from Message inner join User sender 
 on Message.sender_id = sender.id
 inner join User receiver on Message.rec_id = receiver.id
