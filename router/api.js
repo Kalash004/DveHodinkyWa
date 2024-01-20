@@ -52,7 +52,6 @@ inner join User on sender_id = User.id
 inner join ChatGroup on ChatGroup.id = GroupMessage.group_id
 group by ChatGroup.name,User.username,GroupMessage.time_sent,message
 order by time_sent,username;
-
 `;
         rows = await query(sql);
 
@@ -60,7 +59,7 @@ order by time_sent,username;
 
         return res.send(JSON.stringify(data));
     } catch (error) {
-        
+        console.log(error)
         return res.send("[]");
     }
 
