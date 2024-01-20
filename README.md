@@ -5,6 +5,7 @@
 ## [Link na live server](http://ec2-13-49-21-193.eu-north-1.compute.amazonaws.com/views/login.html) bezici na AWS Cloud.
 
 ## Popis
+Aplikace bezi v cloudu na AWS.
 Aplikace poskytuje REST API, ktere na urcitich endpointech poskytuje data o zpravach mezi uzivateli a ruznymi group chaty ulozene v databazi na serveru.
 - Veskere informace o RESTAPI naleznete na /api, nebo pri proklikani se po prihlaseni.
 
