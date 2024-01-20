@@ -145,7 +145,7 @@ router.post('/api/messagesGroup',checkIfAuthenticated,async (req,res) =>{
 })
 
 
-router.post('/api/messagesUser',checkIfAuthenticated,async (req,res) =>{
+router.post('/api/messagesWord',checkIfAuthenticated,async (req,res) =>{
 
     let body = req.body;
     console.log(req.session.user)
