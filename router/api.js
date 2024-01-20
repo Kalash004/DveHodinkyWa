@@ -25,7 +25,7 @@ order by sender,receiver,time_sent;
 `;
         let rows = await query(sql);
 
-        data = {};
+        let data = {};
         if(!rows || rows.length <= 0){
             res.status(200);
             res.set('Content-Type', 'application/json');
