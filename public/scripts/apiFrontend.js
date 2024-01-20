@@ -39,7 +39,6 @@ document.querySelector("#getAllMessages").addEventListener('click',()=>{
     sendButton.className = "sendButton";
 
 
-    apiForm.appendChild(inputID);
     apiForm.appendChild(sendButton);
     updateFormMethod(sendButton);
     apiForm.action = "/api/messages"
