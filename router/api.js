@@ -11,7 +11,7 @@ router.get('/api',checkIfAuthenticated,async(req,res)=>{
     res.sendFile('/api/api.html',{root:'views'});
 })
 
-router.get('/api/messages',async (req,res)=>{
+router.get('/api/messages',checkIfAuthenticated,async (req,res)=>{
 
     try {
 
@@ -70,7 +70,7 @@ order by time_sent,username;
  
 })
 
-router.get('/api/messagesUser',async (req,res) =>{
+router.get('/api/messagesUser',checkIfAuthenticated,async (req,res) =>{
 
     console.log("Api user messages query params:"+req.query.id);
 
