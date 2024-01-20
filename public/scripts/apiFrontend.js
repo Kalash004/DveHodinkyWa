@@ -8,6 +8,15 @@ function updateFormMethod(element){
 document.querySelector("#getMessagesWord").addEventListener('click',()=>{
 
     apiForm.replaceChildren();
+
+
+    const textInput = document.createElement("input");
+    textInput.type = "text";
+    textInput.placeholder = "Word to find";
+    textInput.name = "title";
+    textInput.required = true;
+    textInput.className = "textInput";
+    apiForm.appendChild(textInput);
     
     const sendButton = document.createElement("input");
     sendButton.type = "submit";
@@ -16,19 +25,13 @@ document.querySelector("#getMessagesWord").addEventListener('click',()=>{
     sendButton.className = "sendButton";
 
     apiForm.appendChild(sendButton);
-    apiForm.action = "api/blog";
+    apiForm.action = "api/messagesWord?word="+textInput.value;
     updateFormMethod(sendButton);
 
 })
 
 document.querySelector("#getAllMessages").addEventListener('click',()=>{
     apiForm.replaceChildren();
-
-    const inputID = document.createElement("input");
-    inputID.type = "number";
-    inputID.required = true;
-    inputID.className="numberInput";
-    inputID.name = 'id';
 
     const sendButton = document.createElement("input");
     sendButton.type = "submit";
@@ -38,24 +41,31 @@ document.querySelector("#getAllMessages").addEventListener('click',()=>{
     apiForm.appendChild(inputID);
     apiForm.appendChild(sendButton);
     updateFormMethod(sendButton);
-    apiForm.action = "/api/blogId"
+    apiForm.action = "/api/messages"
 
 })
 
 document.querySelector("#getUserMessages").addEventListener('click',()=>{
     apiForm.replaceChildren();
-    
-    let string = "curl -X DELETE 16.170.146.152/api/blog?id=<ID>	-H \"Accept: application/json\"";
 
-    const sendButton = document.createElement("textarea");
+
+    const textInput = document.createElement("input");
+    textInput.type = "text";
+    textInput.placeholder = "Username/email";
+    textInput.name = "title";
+    textInput.required = true;
+    textInput.className = "textInput";
+    apiForm.appendChild(textInput);
     
-    sendButton.innerHTML = "Must be sent manually. Try "+string;
-    sendButton.className = "textInputArea";
-    sendButton.rows = 5;
-    sendButton.cols = 60;
-    
-    
+    const sendButton = document.createElement("input");
+    sendButton.type = "submit";
+    sendButton.innerHTML = "Send GET request";
+    sendButton.value = "GET";
+    sendButton.className = "sendButton";
+
     apiForm.appendChild(sendButton);
+    apiForm.action = "api/messagesWord?user="+textInput.value;
+    updateFormMethod(sendButton);
 
 })
 
@@ -63,31 +73,22 @@ document.querySelector("#getGroupChatMessages").addEventListener('click',()=>{
     apiForm.replaceChildren();
 
 
-    const title = document.createElement("input");
-    title.type = "text";
-    title.placeholder = "Title goes here";
-    title.name = "title";
-    title.required = true;
-    title.className = "textInput";
-
-    const content = document.createElement("textarea");
-    content.rows = 5;
-    content.cols = 60;
-    content.placeholder = "Content goes here";
-    content.name = "content";
-    content.required = true;
-    content.className = "textInputArea";
-
+    const textInput = document.createElement("input");
+    textInput.type = "text";
+    textInput.placeholder = "groupChat";
+    textInput.name = "title";
+    textInput.required = true;
+    textInput.className = "textInput";
+    apiForm.appendChild(textInput);
+    
     const sendButton = document.createElement("input");
     sendButton.type = "submit";
-    sendButton.innerHTML = "Send POST request";
-    sendButton.value = "POST";
+    sendButton.innerHTML = "Send GET request";
+    sendButton.value = "GET";
     sendButton.className = "sendButton";
 
-    apiForm.appendChild(title);
-    apiForm.appendChild(content);
     apiForm.appendChild(sendButton);
+    apiForm.action = "api/messagesGroup?group="+textInput.value;
     updateFormMethod(sendButton);
-    apiForm.action = '/api/blog';
 
 })

@@ -1,6 +1,11 @@
-select Message.message,Message.time_sent,sender.username "sender",receiver.username "receiver"
-from Message
-inner join User sender on sender.id = Message.sender_id
-inner join User receiver on receiver.id = Message.rec_id
-group by sender.username,receiver.username,message,time_sent
-order by sender,receiver,time_sent\G
+select Message.message as msg,Message.time_sent as sent,User.username as receiver
+from Message 
+inner join User on Message.rec_id = User.id
+group by receiver,time_sent,msg
+order by receiver,time_sent\G
+
+select GroupMessage.message as msg,ChatGroup.name,GroupMessage.time_sent
+from GroupMessage
+inner join ChatGroup on GroupMessage.group_id = ChatGroup.id
+group by name,time_sent,message
+order by name,time_sent\G
