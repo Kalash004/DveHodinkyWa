@@ -25,7 +25,7 @@ order by sender,receiver,time_sent;
 `;
         let rows = await query(sql);
 
-        let data = {};
+        data = {};
         if(!rows || rows.length <= 0){
             res.status(200);
             res.set('Content-Type', 'application/json');
@@ -57,9 +57,13 @@ order by time_sent,username;
 
         data.groupchats = rows;
 
+        res.status(200);
+        res.set('Content-Type', 'application/json');
         return res.send(JSON.stringify(data));
     } catch (error) {
         console.log(error)
+        res.status(200);
+        res.set('Content-Type', 'application/json');
         return res.send("[]");
     }
 
@@ -137,49 +141,70 @@ order by group_Chat,sent;
 
 router.post('/api/messagesGroup',checkIfAuthenticated,async (req,res) =>{
 
-    let body = req.body;
-    console.log(req.session.user)
+    console.log("Api user messages query params:"+req.query.id);
 
-    try{
-        body = JSON.parse(req.body);
-    }catch(e){
-
+    if(!req.query.user){
+        return res.send("Send a user parameter with your query containing username or email");
     }
 
-    console.log(body);
-    
-    
-    if(!body || !body.title || !body.content){
-        return res.send("You must send a JSON object as the body of your request. Use this format: {title:<text>,content:<text>}");
-    }
 
     let rows;
-    let userId = req.session.user["id"];
-    console.log(userId);
-
-    
-
-    try{
-       rows = await query('INSERT INTO Post(author,title,content,date) values (?,?,?,NOW());',[userId,body.title,body.content]);
-    }catch(e){
-        console.log(e);
-        return res.send("Error in SQL query, either the author with this ID does not exist, or your title or content were too long.");   
-    }
-
     try {
-        rows = await query('SELECT MAX(id) as id from Post;');
+
+        let sql = `
+select Message.message as msg,Message.time_sent as sent,User.username as receiver
+from Message 
+inner join User as receiverUser on Message.rec_id = receiverUser.id 
+inner join User as senderUser on Message.sender_id = senderUser.id
+where senderUser.username = ?
+group by receiver,time_sent,msg
+order by receiver,time_sent;
+
+`;
+        rows = await query(sql,[req.query.user])
     } catch (error) {
         console.log(error);
+        return res.send("Error during SQL query.");
     }
 
-    if(!rows){
-        return res.send("No post id returned after insert.");
+    if(!rows ||rows.length == 0){
+        res.status(200);
+        res.set('Content-Type', 'application/json');
+        let data = {posts:[]};
+        return res.send(JSON.stringify(data));
     }
 
-    console.log(rows);
+    let data = {};
+    data.dms = rows; 
 
-    let response = {Request:"Success", idOfPost:rows[0].id};
-    return res.send(JSON.stringify(response));
+    sql = `
+
+select GroupMessage.message as msg,ChatGroup.name as group_Chat,GroupMessage.time_sent as sent
+from GroupMessage
+inner join ChatGroup on GroupMessage.group_id = ChatGroup.id
+inner join User on GroupMessage.sender_id = User.id
+where User.username = ?
+group by group_Chat,sent,message
+order by group_Chat,sent;
+`
+
+    try {
+
+        rows = await query(sql,[req.query.user])
+    } catch (error) {
+        console.log(error);
+        return res.send("Error during SQL query.");
+    }
+
+    if(!rows ||rows.length == 0){
+        res.status(200);
+        res.set('Content-Type', 'application/json');
+        data.groupchats = [];
+        return res.send(JSON.stringify(data));
+    }
+
+    data.groupchats = rows;
+    return res.send(JSON.stringify(data));
 })
 
 
