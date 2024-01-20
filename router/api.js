@@ -29,21 +29,11 @@ order by sender,receiver,time_sent;
         if(!rows || rows.length <= 0){
             res.status(200);
             res.set('Content-Type', 'application/json');
-            data.dms =  [];
+            data.dms =  ["No dms in db"];
             return res.send(JSON.stringify(data));
         }
 
-
-        let messages = []
-        for(let i = 0; i < rows.length; i++){
-            let message = rows[i].message;
-            let time_sent= rows[i].time_sent;
-            let sender = rows[i].sender;
-            let receiver = rows[i].receiver;
-            let json = {'message':message,'sender':sender,'receiver':receiver,'time_sent':time_sent}
-            messages.push(json);
-        }
-
+        data.dms = rows;
         sql = `
 
 select GroupMessage.message, GroupMessage.time_sent,User.username,ChatGroup.name
