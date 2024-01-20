@@ -19,7 +19,7 @@ router.get('/api/messages',async (req,res)=>{
         inner join User sender on sender.id = Message.sender_id
         inner join User receiver on receiver.id = Message.rec_id
         group by sender.username,receiver.username,message,time_sent
-        order by sender,receiver,time_sent\G
+        order by sender,receiver,time_sent\\G
         `;
     let rows = await query(sql);
 
@@ -55,20 +55,21 @@ router.get('/api/messagesUser',async (req,res) =>{
         return res.send("Send a user parameter with your query containing username or email");
     }
 
-    let id;
 
     let rows;
     try {
 
         let sql = `
-select Message.message,Message.time_sent,sender.username as sender,receiver.username receiver
-from Message
-inner join User sender on sender.id = Message.sender_id
-inner join User receiver on receiver.id = Message.rec_id
-group by sender.username,receiver.username,message,time_sent
-order by sender,receiver,time_sent\G
+select Message.message as msg,Message.time_sent as sent,User.username as receiver
+from Message 
+inner join User as receiverUser on Message.rec_id = receiverUser.id 
+inner join User as senderUser on Message.sender_id = senderUser.id
+where senderUser.username = ?
+group by receiver,time_sent,msg
+order by receiver,time_sent;
+
 `;
-        rows = await query(sql)
+        rows = await query(sql,[req.query.user])
     } catch (error) {
         console.log(error);
         return res.send("Error during SQL query.");
@@ -80,19 +81,37 @@ order by sender,receiver,time_sent\G
         let data = {posts:[]};
         return res.send(JSON.stringify(data));
     }
-     
-    res.status(200);
-    res.set('Content-Type', 'application/json');
-    let data = {posts:[]}
-    
-    let author = rows[0].author;
-    let title = rows[0].title;
-    let content = rows[0].content;
-    let date = rows[0].date;
-    let post = {'author':author,'title':title,'content':content,'date':date}
-    data.posts.push(post);
 
-    
+    let data = {};
+    data.dms = rows; 
+
+    sql = `
+
+select GroupMessage.message as msg,ChatGroup.name as group_Chat,GroupMessage.time_sent as sent
+from GroupMessage
+inner join ChatGroup on GroupMessage.group_id = ChatGroup.id
+inner join User on GroupMessage.sender_id = User.id
+where User.username = ?
+group by group_Chat,sent,message
+order by group_Chat,sent;
+`
+
+    try {
+
+        rows = await query(sql,[req.query.user])
+    } catch (error) {
+        console.log(error);
+        return res.send("Error during SQL query.");
+    }
+
+    if(!rows ||rows.length == 0){
+        res.status(200);
+        res.set('Content-Type', 'application/json');
+        data.groupchats = [];
+        return res.send(JSON.stringify(data));
+    }
+
+    data.groupchats = rows;
     return res.send(JSON.stringify(data));
 })
  
