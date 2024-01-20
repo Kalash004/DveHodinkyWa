@@ -13,37 +13,57 @@ router.get('/api',checkIfAuthenticated,async(req,res)=>{
 
 router.get('/api/messages',async (req,res)=>{
 
-    let sql = `
-        select Message.message,Message.time_sent,sender.username as sender,receiver.username receiver
-        from Message
-        inner join User sender on sender.id = Message.sender_id
-        inner join User receiver on receiver.id = Message.rec_id
-        group by sender.username,receiver.username,message,time_sent
-        order by sender,receiver,time_sent\\G
-        `;
-    let rows = await query(sql);
+    try {
 
-    if(!rows || rows.length <= 0){
-        res.status(200);
-        res.set('Content-Type', 'application/json');
-        let data = {message:"No posts present in database"};
+        let sql = `
+select Message.message,Message.time_sent,sender.username as sender,receiver.username receiver
+from Message
+inner join User sender on sender.id = Message.sender_id
+inner join User receiver on receiver.id = Message.rec_id
+group by sender.username,receiver.username,message,time_sent
+order by sender,receiver,time_sent;
+`;
+        let rows = await query(sql);
+
+        data = {};
+        if(!rows || rows.length <= 0){
+            res.status(200);
+            res.set('Content-Type', 'application/json');
+            data.dms =  [];
+            return res.send(JSON.stringify(data));
+        }
+
+
+        let messages = []
+        for(let i = 0; i < rows.length; i++){
+            let message = rows[i].message;
+            let time_sent= rows[i].time_sent;
+            let sender = rows[i].sender;
+            let receiver = rows[i].receiver;
+            let json = {'message':message,'sender':sender,'receiver':receiver,'time_sent':time_sent}
+            messages.push(json);
+        }
+
+        sql = `
+
+select GroupMessage.message, GroupMessage.time_sent,User.username,ChatGroup.name
+from GroupMessage
+inner join User on sender_id = User.id
+inner join ChatGroup on ChatGroup.id = GroupMessage.group_id
+group by ChatGroup.name,User.username,GroupMessage.time_sent,message
+order by time_sent,username;
+
+`;
+        rows = await query(sql);
+
+        data.groupchats = rows;
+
         return res.send(JSON.stringify(data));
+    } catch (error) {
+        
+        return res.send("[]");
     }
 
- 
-    res.status(200);
-    res.set('Content-Type', 'application/json');
-    let messages = []
-    for(let i = 0; i < rows.length; i++){
-        let message = rows[i].message;
-        let time_sent= rows[i].time_sent;
-        let sender = rows[i].sender;
-        let receiver = rows[i].receiver;
-        let json = {'message':message,'sender':sender,'receiver':receiver,'time_sent':time_sent}
-        messages.push(json);
-    }
-    
-    return res.send(JSON.stringify(data));
  
 })
 
