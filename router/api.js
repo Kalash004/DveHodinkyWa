@@ -1,6 +1,7 @@
 import {query} from '../functions/database.js'
 import express from 'express'
 import {checkIfAuthenticated} from '../functions/authentication.js'
+import {isAuth} from '../TonyStuff/authUtils.js'
 
 
 const router = express.Router();

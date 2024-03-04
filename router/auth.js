@@ -2,6 +2,8 @@ import {query} from '../functions/database.js'
 import express from 'express'
 import {validatePassword,hashPassword} from '../functions/passValidation.js'
 import { generateSalt } from '../functions/saltGenerator.js';
+import { generateSession } from '../TonyStuff/sessionService.js'
+import session from 'express-session';
 
 
 const router = express.Router();
@@ -37,8 +39,8 @@ router.post('/login', async (req, res) => {
 
     let user = {id:rows[0].id, loggedIn:1};
 
-    req.session.user = user; 
-
+    session = generateSession(requestUsername)
+    res.cookie("session_token",session)
     if(req.session.authUrl){
         return res.redirect(req.session.authUrl);
     }
@@ -77,9 +79,7 @@ router.post('/signup', async (req, res) => {
         res.set('Content-Type', 'application/json');
         let data = {signup:'false',exception:e};
         return res.send(JSON.stringify(data));
-
     };
-
 });
 
 
