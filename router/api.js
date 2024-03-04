@@ -8,7 +8,7 @@ const router = express.Router();
 
 router.post('/api/neworder',checkIfAuthenticated,async (req,res) =>{
 
-
+    console.log(req.query);
     if(!req.query.order){
         return res.send("Send a query param containing your order named order");
     }
