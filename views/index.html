@@ -30,8 +30,16 @@
             </div>
 
             <div class="orderwrapper">
-               <textarea rows="50" cols="50" placeholder="Enter your order here"></textarea> 
-                <input type="submit" name="send" value="Place order">
+                <div class="neworder">
+                    <form action="api/neworder" method="POST">
+                        <textarea rows="50" cols="50" placeholder="Enter your order here"></textarea> 
+                        <input type="submit" name="send" value="Place order">
+                    </form>
+                </div>
+                <div class="orders">
+                    <span>Order id here: !)@(#)!#(!@#*%&*!@#(</span>
+                    <span>Your order that u placed for that couch or something is down here</span>
+                </div>
             </div>
         </div>
     </body>
