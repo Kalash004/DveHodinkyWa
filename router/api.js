@@ -7,8 +7,8 @@ const router = express.Router();
 
 router.post('/api/neworder',checkIfAuthenticated,async (req,res) =>{
 
-    console.log(req.query);
-    if(!req.query.order){
+    console.log(req.body);
+    if(!req.body.order){
         return res.send("Send a query param containing your order named order");
     }
 
@@ -18,7 +18,7 @@ router.post('/api/neworder',checkIfAuthenticated,async (req,res) =>{
         let sql = `
         INSERT INTO UserOrder(user_id,orderString) values(?,?);
         `;
-        rows = await query(sql,[sessionsStorage.userId,req.query.order])
+        rows = await query(sql,[sessionsStorage.userId,req.body.order])
     } catch (error) {
         console.log(error);
         return res.send("Error during SQL query.");
