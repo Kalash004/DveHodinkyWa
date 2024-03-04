@@ -61,6 +61,8 @@ server.get('/',checkIfAuthenticated,(req,res)=>{
 
 
 expressWs(server);
+
+
 // Routers from router/
 mountRouter();
 server.use(wsRouter);

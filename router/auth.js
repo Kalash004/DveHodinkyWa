@@ -15,7 +15,7 @@ router.post('/login', async (req, res) => {
     let rows = null;
     let params = [requestUsername,requestUsername]
     try{
-        rows = await query('SELECT passHash,id,salt FROM User WHERE User.username = ? OR User.email = ?', params);
+        rows = await query('SELECT passHash,id,salt FROM Users WHERE Users.username = ? OR Users.email = ?', params);
     }catch(Exception){
         console.log(Exception);
         res.status(401);
@@ -63,7 +63,7 @@ router.post('/signup', async (req, res) => {
     try{
 
         let params = [requestUsername,placeholder,placeholder,requestEmail,passHash,salt];
-        await query('INSERT INTO User(username,jmeno,prijmeni,email,passHash,salt) values (?,?,?,?,?,?)',params );
+        await query('INSERT INTO Users(username,jmeno,prijmeni,email,passHash,salt) values (?,?,?,?,?,?)',params );
 
         console.log('Executed query');
         res.status(200);

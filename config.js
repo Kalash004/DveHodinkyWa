@@ -1,7 +1,7 @@
 const config = {
     db:{
         host:"localhost",
-        user:"kuta",
+        user:"charming",
         password:"kuta",
         database:"2hour",
         connectTimeout:60000
