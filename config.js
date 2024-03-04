@@ -3,7 +3,7 @@ const config = {
         host:"localhost",
         user:"kuta",
         password:"kuta",
-        database:"webServer",
+        database:"2hour",
         connectTimeout:60000
     },
     server:{

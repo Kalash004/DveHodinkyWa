@@ -17,14 +17,13 @@ router.post('/login', async (req, res) => {
     try{
         rows = await query('SELECT passHash,id,salt FROM User WHERE User.username = ? OR User.email = ?', params);
     }catch(Exception){
-
-    res.status(401);
-    return res.send("Error during SQL query. Please try again later.");
-
+        console.log(Exception);
+        res.status(401);
+        return res.send("Error during SQL query. Please try again later.");
     }
 
     if(!rows || rows.length == 0){
-    res.status(401);
+        res.status(401);
         return res.send("Incorrect login attributes. I didn't quite get to making flash messages...") 
     }
 
@@ -39,7 +38,7 @@ router.post('/login', async (req, res) => {
     let user = {id:rows[0].id, loggedIn:1};
 
     req.session.user = user; 
-    
+
     if(req.session.authUrl){
         return res.redirect(req.session.authUrl);
     }
@@ -51,12 +50,12 @@ router.post('/login', async (req, res) => {
 
 router.post('/signup', async (req, res) => {
 
-    
+
     let requestUsername = req.body.username;
     let requestPassword = req.body.password;
     let requestEmail = req.body.email;
     let placeholder = "placeholder";
-    
+
     let salt = generateSalt(requestUsername,requestEmail);
     let passHash = hashPassword((requestPassword+salt));
 

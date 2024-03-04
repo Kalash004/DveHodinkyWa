@@ -1,50 +1,24 @@
-DELIMITER //
-BEGIN
-
-	START TRANSACTION;
-create table IF NOT EXISTS User(
+create table IF NOT EXISTS Users(
 	id BINARY(16) primary key default (UUID_TO_BIN(UUID())) ,
 	username varchar(255) not null,
 	jmeno varchar(255) not null,
 	prijmeni varchar(255) not null,
 	email varchar(255) not null,
 	passHash varchar(500) not null,
-	salt varchar(255) not null
+	salt varchar(255) not null,
+    img varchar(400) not null default 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSlpIVml2Nk895Wo6438KgvNMUqtLXtnj8fDoF5PZPQeA&s'
 );
 
-create table IF NOT EXISTS ChatGroup(
-	id BINARY(16) primary key default (UUID_TO_BIN(UUID())) ,
-	name varchar(255) not null,
-	desc varchar(255) not null
-);
-
-create table IF NOT EXISTS GroupMember(
-	id BINARY(16) primary key default (UUID_TO_BIN(UUID())), 
-	group_id BINARY(16),
-    constraint fk_group_id foreign key(group_id) references ChatGroup(id),
-	user_id BINARY(16),
-    constraint fk_user_id foreign key(user_id) references User(id),
-    nickname varchar(255)
-);
-
-
-create table IF NOT EXISTS Message(
+create table IF NOT EXISTS Admin(
 	id BINARY(16) primary key default (UUID_TO_BIN(UUID())),
-	sender_id BINARY(16) not null,
-	constraint fk_sender foreign key(sender_id) references User(id),
-	rec_id BINARY(16) not null,
-	constraint fk_rec foreign key(rec_id) references User(id),
-	message varchar(450) not null
+    user_id BINARY(16) not null unique,
+    foreign key(user_id) references Users(id)
+
 );
 
-create table IF NOT EXISTS GroupMessage(
-	id Binary(16) primary key default (UUID_TO_BIN(UUID())),
-	sender_id BINARY(16) not null,
-	constraint fk_group_sender foreign key(sender_id) references User(id),
-	group_id BINARY(16) not null,
-	constraint fk_group foreign key(group_id) references ChatGroup(id),
-	message varchar(450) not null
+create table IF NOT EXISTS UserOrder(
+	id BINARY(16) primary key default (UUID_TO_BIN(UUID())) ,
+	orderString varchar(500) not null,
+    is_visible bit(1) not null default 1,
+    is_deleted bit(1) not null default 0
 );
-
-END //
-DELIMITER ;
