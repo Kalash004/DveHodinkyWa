@@ -2,7 +2,7 @@ import {query} from '../functions/database.js'
 import express from 'express'
 import {validatePassword,hashPassword} from '../functions/passValidation.js'
 import { generateSalt } from '../functions/saltGenerator.js';
-import { generateSession } from '../TonyStuff/sessionService.js'
+import { generateSession, removeSession } from '../TonyStuff/sessionService.js'
 import session from 'express-session';
 
 
@@ -89,6 +89,8 @@ router.get('/login',async (req,res)=>{
 
 router.delete('/logout',async (req,res)=>{
 
+    const sessionToken = req.cookies['session_token']
+    removeSession(sessionToken)
     req.session.destroy((err) => {
         if (err) {
             return res.status(400).send('Unable to log out')

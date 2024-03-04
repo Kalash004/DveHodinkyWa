@@ -1,15 +1,15 @@
-import {query} from '../functions/database.js'
+import { query } from '../functions/database.js'
 import express from 'express'
-import {checkIfAuthenticated} from '../functions/authentication.js'
-import {isAuth} from '../TonyStuff/authUtils.js'
+import { checkIfAuthenticated } from '../functions/authentication.js'
+import { isAuth } from '../TonyStuff/authUtils.js'
 
 
 const router = express.Router();
 
-router.post('/api/neworder',checkIfAuthenticated,async (req,res) =>{
+router.post('/api/neworder', isAuth, async (req, res) => {
 
     console.log(req.query);
-    if(!req.query.order){
+    if (!req.query.order) {
         return res.send("Send a query param containing your order named order");
     }
 
@@ -19,16 +19,16 @@ router.post('/api/neworder',checkIfAuthenticated,async (req,res) =>{
         let sql = `
         INSERT INTO UserOrder(user_id,orderString) values(?,?);
         `;
-        rows = await query(sql,[sessionsStorage.userId,req.query.order])
+        rows = await query(sql, [sessionsStorage.userId, req.query.order])
     } catch (error) {
         console.log(error);
         return res.send("Error during SQL query.");
     }
 
-    if(!rows ||rows.length == 0){
+    if (!rows || rows.length == 0) {
         res.status(200);
         res.set('Content-Type', 'application/json');
-        let data = {posts:[]};
+        let data = { posts: [] };
         return res.send(JSON.stringify(data));
     }
     return res.send(JSON.stringify(":ok"));
