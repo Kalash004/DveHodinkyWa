@@ -1,11 +1,11 @@
 import {query} from '../functions/database.js'
 import express from 'express'
-import {checkIfAuthenticated} from '../functions/authentication.js'
+import { isAuth } from '../TonyStuff/authUtils.js';
 
 
 const router = express.Router();
 
-router.post('/api/neworder',checkIfAuthenticated,async (req,res) =>{
+router.post('/api/neworder',isAuth,async (req,res) =>{
 
     console.log(req.body);
     if(!req.body.order){

@@ -2,6 +2,8 @@ import {query} from '../functions/database.js'
 import express from 'express'
 import {validatePassword,hashPassword} from '../functions/passValidation.js'
 import { generateSalt } from '../functions/saltGenerator.js';
+import { generateSession,removeSession } from '../TonyStuff/sessionService.js';
+
 
 
 const router = express.Router();
@@ -35,9 +37,8 @@ router.post('/login', async (req, res) => {
         return res.send("Incorrect login password. I didn't quite get to making flash messages...") 
     }
 
-    let user = {id:rows[0].id, loggedIn:1};
-
-    req.session.user = user; 
+    let session = generateSession(requestUsername);
+    res.cookie("session_token",session);
 
     if(req.session.authUrl){
         return res.redirect(req.session.authUrl);
@@ -88,15 +89,10 @@ router.get('/login',async (req,res)=>{
 })  
 
 router.delete('/logout',async (req,res)=>{
+    const sessionToken = req.cookies["session_token"];
+    removeSession(sessionToken);
 
-    req.session.destroy((err) => {
-        if (err) {
-            return res.status(400).send('Unable to log out')
-        }
-    });
-
-    return res.redirect('/login');
-
+    return res.redirect("/");
 })
 
 export default router

@@ -8,7 +8,7 @@ import wsRouter,{mountRouter} from './router/socket.js';
 import expressWs from "express-ws";
 import sessions from "express-session";
 import cookieParser from "cookie-parser";
-import {checkIfAuthenticated} from "./functions/authentication.js";
+import { isAuth } from './TonyStuff/authUtils.js';
 import config from "./config.js"; 
 import path, {dirname} from 'path';
 import { fileURLToPath } from "url";
@@ -53,7 +53,7 @@ server.get("/favicon.ico",(req,res)=>{
 
 // // Base routes
 
-server.get('/',checkIfAuthenticated,(req,res)=>{
+server.get('/',isAuth,(req,res)=>{
     res.status(200);
     res.set('Content-Type','text/html');
     res.sendFile(path.join(__dirname,'/views/'));
